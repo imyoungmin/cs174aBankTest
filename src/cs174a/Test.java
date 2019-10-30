@@ -43,8 +43,8 @@ public class Test
 	 */
 	private static class DetailedAccount extends Account {
 		double initialBalance;          // Account initial balance (see Account class for ending monthly balance).
-		boolean insuranceWarning;       // True if primary owner's money exceeds $100K.
 		Customer[] owners;              // Customers owning this account.
+		double[] transactions;          // Chronologically-sorted list of transactions on this account: positive for adding (e.g. deposits), negative for subtracting (e.g. payments).
 	}
 
 	/**
@@ -71,13 +71,6 @@ public class Test
 	}
 
 	/**
-	 * Result object for operations that return information about written checks.
-	 */
-	private static class ResultCheck extends ResultBalance {
-		int check;                      // Written check number.
-	}
-
-	/**
 	 * Result object for operations that return to return account's information.
 	 */
 	private static class ResultAccount extends Result {
@@ -100,6 +93,7 @@ public class Test
 	}
 
 	private static class ResultDetailedAccountList extends Result{
+		boolean insuranceWarning;       // True if primary owner's money exceeds $100K.
 		DetailedAccount[] detailedAccounts;     // List of detailed account objects.
 	}
 
@@ -151,10 +145,10 @@ public class Test
 	}
 
 	/**
-	 * Log in to manager/teller interface.
+	 * Log in to bank teller interface.
 	 * @return a generic Result object.
 	 */
-	public Result managerLogin()
+	public Result bankTellerLogin()
 	{
 		// TODO: Your implementation.
 		return new Result();
@@ -173,7 +167,7 @@ public class Test
 	}
 
 	/**
-	 * Logout from active manager or customer session.
+	 * Logout from active bank teller or customer session.
 	 * @return a generic Result object.
 	 */
 	public Result logout()
@@ -196,13 +190,14 @@ public class Test
 
 	/**
 	 * Create a new checkings or savings account.
+	 * If customer is new, then their name and address should be provided, with optional PIN.
 	 * @param accountType New account's checkings or savings type.
 	 * @param id New account's ID.
 	 * @param initialBalance Initial account balance.
 	 * @param tin Account's owner Tax ID number - it may belong to an existing or new customer.
-	 * @param name If customer is new, this is the customer's name.
-	 * @param address If customer is new, this is the customer's address.
-	 * @param pin If customer is new, this is the optional customer's PIN.
+	 * @param name [Optional] If customer is new, this is the customer's name.
+	 * @param address [Optional] If customer is new, this is the customer's address.
+	 * @param pin [Optional] If customer is new, this is the optional customer's PIN.
 	 * @return a ResultAccount object with information about new account and owner.
 	 */
 	public ResultAccount createCheckingsSavingsAccount( AccountType accountType, String id, double initialBalance, String tin, String name, String address, String pin )
@@ -328,13 +323,14 @@ public class Test
 	/**
 	 * Subtract money from a checkings account.
 	 * @param accountId Checkings account ID.
+	 * @param checkNumber Check's number.
 	 * @param amount Check's amount.
-	 * @return a ResultCheck object containing the check number and the new balance in the checkings account.
+	 * @return a ResultBalance object containing new balance of the checkings account.
 	 */
-	public ResultCheck writeCheck( String accountId, double amount )
+	public ResultBalance writeCheck( String accountId, int checkNumber, double amount )
 	{
 		// TODO: Your implementation.
-		return new ResultCheck();
+		return new ResultBalance();
 	}
 
 	/**
