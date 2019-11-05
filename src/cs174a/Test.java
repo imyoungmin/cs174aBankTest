@@ -12,8 +12,8 @@ public class Test
 	 * Account types.
 	 */
 	private enum AccountType {
-		STUDENT_CHECKINGS,
-		INTEREST_CHECKINGS,
+		STUDENT_CHECKING,
+		INTEREST_CHECKING,
 		SAVINGS,
 		POCKET
 	}
@@ -189,9 +189,9 @@ public class Test
 	}
 
 	/**
-	 * Create a new checkings or savings account.
+	 * Create a new checking or savings account.
 	 * If customer is new, then their name and address should be provided, with optional PIN.
-	 * @param accountType New account's checkings or savings type.
+	 * @param accountType New account's checking or savings type.
 	 * @param id New account's ID.
 	 * @param initialBalance Initial account balance.
 	 * @param tin Account's owner Tax ID number - it may belong to an existing or new customer.
@@ -200,7 +200,7 @@ public class Test
 	 * @param pin [Optional] If customer is new, this is the optional customer's PIN.
 	 * @return a ResultAccount object with information about new account and owner.
 	 */
-	public ResultAccount createCheckingsSavingsAccount( AccountType accountType, String id, double initialBalance, String tin, String name, String address, String pin )
+	public ResultAccount createCheckingSavingsAccount( AccountType accountType, String id, double initialBalance, String tin, String name, String address, String pin )
 	{
 		// TODO: Your implementation.
 		return new ResultAccount();
@@ -209,7 +209,7 @@ public class Test
 	/**
 	 * Create a new pocket account.
 	 * @param id New account's ID.
-	 * @param linkedId Linked savings or checkings account ID.
+	 * @param linkedId Linked savings or checking account ID.
 	 * @param initialTopUp Initial balance to be deducted from linked account and deposited into new pocket account.
 	 * @param tin Existing customer's Tax ID number.  He/She will become the new pocket account's owner.
 	 * @return a ResultAccount object with information about new account and owner.
@@ -221,8 +221,8 @@ public class Test
 	}
 
 	/**
-	 * Create a new customer and link them to an existing checkings or saving account.
-	 * @param accountId Existing checkings or saving account.
+	 * Create a new customer and link them to an existing checking or saving account.
+	 * @param accountId Existing checking or saving account.
 	 * @param tin New customer's Tax ID number.
 	 * @param name New customer's name.
 	 * @param address New customer's address.
@@ -236,8 +236,8 @@ public class Test
 	}
 
 	/**
-	 * Change the ownership of a checkings or savings account.
-	 * @param accountId Existing checkings or savings account ID.
+	 * Change the ownership of a checking or savings account.
+	 * @param accountId Existing checking or savings account ID.
 	 * @param tin Existing customer Tax ID number.
 	 * @return a generic Result object.
 	 */
@@ -248,8 +248,8 @@ public class Test
 	}
 
 	/**
-	 * Change the primary owner of a checkings or savings account.
-	 * @param accountId Existing checkings or savings account ID.
+	 * Change the primary owner of a checking or savings account.
+	 * @param accountId Existing checking or savings account ID.
 	 * @param tin Existing customer Tax ID number who will become the account's primary owner.
 	 * @return a generic Result object.
 	 */
@@ -260,7 +260,7 @@ public class Test
 	}
 
 	/**
-	 * Deposit a given amount of dollars to an existing checkings or savings account.
+	 * Deposit a given amount of dollars to an existing checking or savings account.
 	 * @param accountId Account ID.
 	 * @param amount Non-negative amount to deposit.
 	 * @return a ResultBalance object containing the account's new balance.
@@ -272,7 +272,7 @@ public class Test
 	}
 
 	/**
-	 * Withdraw a given amount of dollars from an existing savings or checkings account.  If balance goes to $0.01,
+	 * Withdraw a given amount of dollars from an existing savings or checking account.  If balance goes to $0.01,
 	 * then mark account as closed.  If money to be withdrawn is greater than available balance, then operation should
 	 * not be allowed.
 	 * @param accountId Account ID.
@@ -321,11 +321,11 @@ public class Test
 	}
 
 	/**
-	 * Subtract money from a checkings account.
-	 * @param accountId Checkings account ID.
+	 * Subtract money from a checking account.
+	 * @param accountId Checking account ID.
 	 * @param checkNumber Check's number.
 	 * @param amount Check's amount.
-	 * @return a ResultBalance object containing new balance of the checkings account.
+	 * @return a ResultBalance object containing new balance of the checking account.
 	 */
 	public ResultBalance writeCheck( String accountId, int checkNumber, double amount )
 	{
@@ -334,7 +334,7 @@ public class Test
 	}
 
 	/**
-	 * Move a specified amount of money from the linked checkings/savings account to the pocket account.
+	 * Move a specified amount of money from the linked checking/savings account to the pocket account.
 	 * @param accountId Pocket account ID.
 	 * @param amount Non-negative amount to top up.
 	 * @return a ResultBalances object with the 'balanceFrom' containing the linked account's new balance, and the 'balanceTo'
@@ -360,7 +360,7 @@ public class Test
 	}
 
 	/**
-	 * Move a specified amount of money from a pocket account back to the linked checkings/savings account.
+	 * Move a specified amount of money from a pocket account back to the linked checking/savings account.
 	 * @param accountId Pocket account ID.
 	 * @param amount Non-negative amount to collect.
 	 * @return a ResultBalances object with the 'balanceFrom' set to the pocket account's new balance, and the 'balanceTo'
@@ -393,16 +393,16 @@ public class Test
 		// TODO: Example of result object to be returned.
 		Account[] closedAccounts = new Account[2];
 		closedAccounts[0] = new Account();
-		closedAccounts[0].id = "Checkings 1";       // A checkings account.
+		closedAccounts[0].id = "Checking 1";       // A checking account.
 		closedAccounts[0].balance = 0.009;
 		closedAccounts[0].linkedAccount = null;
 		closedAccounts[0].open = false;
-		closedAccounts[0].type = AccountType.INTEREST_CHECKINGS;
+		closedAccounts[0].type = AccountType.INTEREST_CHECKING;
 
 		closedAccounts[1] = new Account();
 		closedAccounts[1].id = "Pocket 1";          // A pocket account.
 		closedAccounts[1].balance = 0.0;
-		closedAccounts[1].linkedAccount = "Checkings 1";
+		closedAccounts[1].linkedAccount = "Checking 1";
 		closedAccounts[1].open = false;
 		closedAccounts[1].type = AccountType.POCKET;
 
@@ -471,6 +471,17 @@ public class Test
 	 * @return a generic Result object.
 	 */
 	public Result deleteTransactions()
+	{
+		// TODO: Your implementation.
+		return new Result();
+	}
+
+	/**
+	 * Bulk insertions into your DB from a file with formatted data.
+	 * @param filePath Source data file.
+	 * @return a generic Result object.
+	 */
+	public Result loadData( String filePath )
 	{
 		// TODO: Your implementation.
 		return new Result();
