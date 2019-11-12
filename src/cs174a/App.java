@@ -1,4 +1,4 @@
-package cs174a;                                             // Any package is OK.
+package cs174a;                                             // THE BASE PACKAGE FOR YOUR APP MUST BE THIS ONE.  But you may add subpackages.
 
 // You may have as many imports as you need.
 import java.sql.DatabaseMetaData;

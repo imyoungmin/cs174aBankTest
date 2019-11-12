@@ -1,4 +1,4 @@
-package cs174a;                         // Any package is OK.
+package cs174a;                         // THE BASE PACKAGE FOR YOUR APP MUST BE THIS ONE.  But you may add subpackages.
 
 // DO NOT REMOVE THIS IMPORT.
 import cs174a.Testable.*;
@@ -6,6 +6,7 @@ import cs174a.Testable.*;
 /**
  * This is the class that launches your application.
  * DO NOT CHANGE ITS NAME.
+ * DO NOT MOVE TO ANY OTHER (SUB)PACKAGE.
  * There's only one "main" method, it should be defined within this Main class, and its signature should not be changed.
  */
 public class Main

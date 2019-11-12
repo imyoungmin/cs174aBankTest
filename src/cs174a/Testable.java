@@ -2,7 +2,7 @@
  * CS174A Project Test Class.
  * Crated by Im YoungMin on October 29, 2019.
  */
-package cs174a;                         // Any package is OK.
+package cs174a;                         // THE BASE PACKAGE FOR YOUR APP MUST BE THIS ONE.
 
 interface Testable
 {
