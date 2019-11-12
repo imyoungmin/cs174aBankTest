@@ -1,71 +1,46 @@
-package cs174a;
+package cs174a;                         // Any package is OK.
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.Properties;
+// DO NOT REMOVE THIS IMPORT.
+import cs174a.Testable.*;
 
-import oracle.jdbc.pool.OracleDataSource;
-import oracle.jdbc.OracleConnection;
-import java.sql.DatabaseMetaData;
-
+/**
+ * This is the class that launches your application.
+ * DO NOT CHANGE ITS NAME.
+ * There's only one "main" method, it should be defined within this Main class, and its signature should not be changed.
+ */
 public class Main
 {
-	// The recommended format of a connection URL is the long format with the connection descriptor.
-	private final static String DB_URL = "jdbc:oracle:thin:@cs174a.cs.ucsb.edu:1521/orcl";
-	private final static String DB_USER = "c##TAluis";
-	private final static String DB_PASSWORD = "MyOraclePassw0rd";
-
 	/**
-	 * The method gets a database connection using oracle.jdbc.pool.OracleDataSource.  It also sets some connection level properties,
-	 * such as, OracleConnection.CONNECTION_PROPERTY_DEFAULT_ROW_PREFETCH, OracleConnection.CONNECTION_PROPERTY_THIN_NET_CHECKSUM_TYPES, etc.,
-	 * There are many other connection related properties. Refer to the OracleConnection interface to find more.
+	 * Program entry point.
+	 * DO NOT CHANGE ITS NAME.
+	 * DON'T CHANGE THE //!### TAGS EITHER.  If you delete them your program won't run our tests.
+	 * No other function should be enclosed by the //!### tags.
 	 */
-	public static void main( String[] args ) throws SQLException
+	//!### COMENZAMOS
+	public static void main( String[] args )
 	{
-		Properties info = new Properties();
-		info.put( OracleConnection.CONNECTION_PROPERTY_USER_NAME, DB_USER );
-		info.put( OracleConnection.CONNECTION_PROPERTY_PASSWORD, DB_PASSWORD );
-		info.put( OracleConnection.CONNECTION_PROPERTY_DEFAULT_ROW_PREFETCH, "20" );
+		App app = new App();            // We need the default constructor of your App implementation.  Make sure such
+										// constructor exists.
+		app.initializeSystem();         // We'll always call this function before testing your system.
+		app.exampleAccessToDB();        // Example on how to connect to the DB.
 
+		// Example tests.  We'll overwrite your Main.main() function with our final tests.
+		ResultAccountList result = app.listClosedAccounts();
 
-		OracleDataSource ods = new OracleDataSource();
-		ods.setURL( DB_URL );
-		ods.setConnectionProperties( info );
-
-		// With AutoCloseable, the connection is closed automatically.
-		try ( OracleConnection connection = (OracleConnection) ods.getConnection() )
+		System.out.println( "Error code: " + result.errorCode );
+		if( result.errorCode != 0 )
+			System.out.println( " Error msg: " + result.errorMessage );
+		System.out.println( "---------- Accounts ---------" );
+		for( Account account : result.accounts )
 		{
-			// Get the JDBC driver name and version
-			DatabaseMetaData dbmd = connection.getMetaData();
-			System.out.println( "Driver Name: " + dbmd.getDriverName() );
-			System.out.println( "Driver Version: " + dbmd.getDriverVersion() );
-			// Print some connection properties
-			System.out.println( "Default Row Prefetch Value is: " +
-					connection.getDefaultRowPrefetch() );
-			System.out.println( "Database Username is: " + connection.getUserName() );
-			System.out.println();
-			// Perform a database operation
-			printEmployees( connection );
+			System.out.println( "- Account: " + account.id );
+			System.out.println( "-    Type: " + account.type );
+			if( account.linkedAccount != null )
+				System.out.println( "-  Linked: " + account.linkedAccount );
+			System.out.println( "- Balance: " + account.balance );
+			System.out.println( "-    Open: " + account.open );
+			System.out.println( "-----------------------------" );
 		}
 	}
-
-	/**
-	 * Displays first_name and last_name from the employees table.
-	 */
-	private static void printEmployees( Connection connection ) throws SQLException
-	{
-		// Statement and ResultSet are AutoCloseable and closed automatically.
-		try ( Statement statement = connection.createStatement() )
-		{
-			try ( ResultSet resultSet = statement
-					.executeQuery( "select owner,table_name from all_tables" ) )
-			{
-				while ( resultSet.next() )
-					System.out.println( resultSet.getString( 1 ) + " "
-							+ resultSet.getString( 2 ) + " " );
-			}
-		}
-	}
+	//!### FINALIZAMOS
 }
