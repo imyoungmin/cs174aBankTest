@@ -50,7 +50,7 @@ public class App implements Testable
 	// Check the Testable.java interface for the function signatures and descriptions.
 
 	@Override
-	public void initializeSystem()
+	public String initializeSystem()
 	{
 		// Some constants to connect to your DB.
 		final String DB_URL = "jdbc:oracle:thin:@cs174a.cs.ucsb.edu:1521/orcl";
@@ -79,41 +79,31 @@ public class App implements Testable
 			System.out.println( "Default Row Prefetch Value is: " + _connection.getDefaultRowPrefetch() );
 			System.out.println( "Database Username is: " + _connection.getUserName() );
 			System.out.println();
+
+			return "0";
 		}
 		catch( SQLException e )
 		{
 			System.err.println( e.getMessage() );
+			return "1";
 		}
 	}
 
 	/**
-	 * Example of one of the testable functions.  Here, the object was populated by hand.  You must populate the returned
-	 * objects with information coming from your DB tables.
+	 * Example of one of the testable functions.
 	 */
 	@Override
-	public ResultAccountList listClosedAccounts()
+	public String listClosedAccounts()
 	{
-		// Example of result object to be returned.
-		Account[] closedAccounts = new Account[2];
-		closedAccounts[0] = new Account();
-		closedAccounts[0].id = "Checking 1";       // A checking account.
-		closedAccounts[0].balance = 0.009;
-		closedAccounts[0].linkedAccount = null;
-		closedAccounts[0].open = false;
-		closedAccounts[0].type = AccountType.INTEREST_CHECKING;
+		return "0 it works!";
+	}
 
-		closedAccounts[1] = new Account();
-		closedAccounts[1].id = "Pocket 1";          // A pocket account.
-		closedAccounts[1].balance = 0.0;
-		closedAccounts[1].linkedAccount = "Checking 1";
-		closedAccounts[1].open = false;
-		closedAccounts[1].type = AccountType.POCKET;
-
-		ResultAccountList resultAccountList = new ResultAccountList();
-		resultAccountList.errorCode = 0;            // No error.
-		resultAccountList.accounts = closedAccounts;
-		resultAccountList.errorMessage = null;
-
-		return resultAccountList;
+	/**
+	 * Another example.
+	 */
+	@Override
+	public String createCheckingSavingsAccount( AccountType accountType, String id, double initialBalance, String tin, String name, String address )
+	{
+		return "0 " + id + " " + accountType + " " + initialBalance + " " + tin;
 	}
 }

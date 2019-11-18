@@ -20,27 +20,20 @@ public class Main
 	//!### COMENZAMOS
 	public static void main( String[] args )
 	{
-		App app = new App();            // We need the default constructor of your App implementation.  Make sure such
-										// constructor exists.
-		app.initializeSystem();         // We'll always call this function before testing your system.
-		app.exampleAccessToDB();        // Example on how to connect to the DB.
-
-		// Example tests.  We'll overwrite your Main.main() function with our final tests.
-		ResultAccountList result = app.listClosedAccounts();
-
-		System.out.println( "Error code: " + result.errorCode );
-		if( result.errorCode != 0 )
-			System.out.println( " Error msg: " + result.errorMessage );
-		System.out.println( "---------- Accounts ---------" );
-		for( Account account : result.accounts )
+		App app = new App();                        // We need the default constructor of your App implementation.  Make sure such
+													// constructor exists.
+		String r = app.initializeSystem();          // We'll always call this function before testing your system.
+		if( r.equals( "0" ) )
 		{
-			System.out.println( "- Account: " + account.id );
-			System.out.println( "-    Type: " + account.type );
-			if( account.linkedAccount != null )
-				System.out.println( "-  Linked: " + account.linkedAccount );
-			System.out.println( "- Balance: " + account.balance );
-			System.out.println( "-    Open: " + account.open );
-			System.out.println( "-----------------------------" );
+			app.exampleAccessToDB();                // Example on how to connect to the DB.
+
+			// Example tests.  We'll overwrite your Main.main() function with our final tests.
+			r = app.listClosedAccounts();
+			System.out.println( r );
+
+			// Another example test.
+			r = app.createCheckingSavingsAccount( AccountType.INTEREST_CHECKING, "account1", 1234.56, "theTaxID", "Im YoungMing", "Known" );
+			System.out.println( r );
 		}
 	}
 	//!### FINALIZAMOS
