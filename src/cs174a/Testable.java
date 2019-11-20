@@ -51,21 +51,6 @@ interface Testable
 	String setDate( int year, int month, int day );
 
 	/**
-	 * Bulk insertions into your DB from a file with formatted data.
-	 * @param filePath Source data file.
-	 * @return a string "r", where r = 0 for success, 1 for error.
-	 */
-	String loadData( String filePath );
-
-	/**
-	 * Change the annual interest rate to a given account type.
-	 * @param accountType One of the types of customer bank accounts.
-	 * @param annualRate New non-negative annual interest rate.
-	 * @return a string "r i", where r = 0 for success, 1 for error; and i is the new interest with up to 2 decimal places (e.g. %.2f).
-	 */
-	String setInterest( AccountType accountType, double annualRate );
-
-	/**
 	 * Create a new checking or savings account.
 	 * If customer is new, then their name and address should be provided.
 	 * @param accountType New account's checking or savings type.
@@ -158,12 +143,4 @@ interface Testable
 	 *         id1 id2 ... idn is a list of space-separated closed account IDs.
 	 */
 	String listClosedAccounts();
-
-	/**
-	 * Generate Government Drug and Tax Evasion Report.
-	 * @return a string "r tin1 tin2 ... tinn", where
-	 *         r = 0 for success, 1 for error; and
-	 *         tin1 tin2 ... tinn is a list of space-separated customer Tax IDs.
-	 */
-	String generateDTER();
 }
