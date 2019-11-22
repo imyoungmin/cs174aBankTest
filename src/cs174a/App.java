@@ -1,10 +1,7 @@
 package cs174a;                                             // THE BASE PACKAGE FOR YOUR APP MUST BE THIS ONE.  But you may add subpackages.
 
 // You may have as many imports as you need.
-import java.sql.DatabaseMetaData;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.Properties;
 import oracle.jdbc.pool.OracleDataSource;
 import oracle.jdbc.OracleConnection;
@@ -27,18 +24,99 @@ public class App implements Testable
 	}
 
 	/**
+	 * This is an example of DDL.
+	 */
+	void exampleCreateTable()
+	{
+		try( Statement statement = _connection.createStatement() )
+		{
+			statement.executeUpdate( "create table Parts2(" +
+					"    pid int," +
+					"    pname varchar(20)," +
+					"    color varchar(20)," +
+					"    primary key (pid)" +
+					")" );
+			System.out.println( "Parts2 table has been successfully created!" );
+		}
+		catch( SQLException e )
+		{
+			System.err.println( e.getMessage() );
+		}
+	}
+
+	/**
+	 * This is an example of inserting rows into a table.
+	 */
+	void exampleInsertIntoTable()
+	{
+		try( PreparedStatement preparedStatement = _connection.prepareStatement( "insert into Parts2( pid, pname, color ) values ( ?, ?, ? )" ) )
+		{
+			int[] ids = {10, 11, 12, 13};
+			String[] names = {"Part A", "Part B", "Part C", "Part C"};
+			String[] colors = {"red", "red", "green", "green"};
+			for( int i = 0; i < ids.length; i++ )
+			{
+				preparedStatement.clearParameters();                        // Filling in the blanks.
+				preparedStatement.setInt( 1, ids[i] );
+				preparedStatement.setString( 2, names[i] );
+				preparedStatement.setString( 3, colors[i] );
+
+				preparedStatement.executeUpdate();
+			}
+			System.out.println( "Parts2 table has been successfully populated!" );
+		}
+		catch( SQLException e )
+		{
+			System.err.println( e.getMessage() );
+		}
+	}
+
+	/**
 	 * This is an example access operation to the DB.
 	 */
-	void exampleAccessToDB()
+	void exampleAccessTable()
 	{
 		// Statement and ResultSet are AutoCloseable and closed automatically.
 		try( Statement statement = _connection.createStatement() )
 		{
-			try( ResultSet resultSet = statement.executeQuery( "select owner, table_name from all_tables" ) )
+			try( ResultSet resultSet = statement.executeQuery( "select * from Parts2" ) )
 			{
 				while( resultSet.next() )
-					System.out.println( resultSet.getString( 1 ) + " " + resultSet.getString( 2 ) + " " );
+					System.out.println( resultSet.getInt( "pid" ) + " " + resultSet.getString( "pname" ) + " " + resultSet.getString( "color" ) );
 			}
+		}
+		catch( SQLException e )
+		{
+			System.err.println( e.getMessage() );
+		}
+	}
+
+	/**
+	 * This is an example of destroying a table.
+	 */
+	void exampleDetroyTable()
+	{
+		try( Statement statement = _connection.createStatement() )
+		{
+			int numberOfDeletedRows = statement.executeUpdate( "delete from Parts2" );
+			System.out.println( "Deleted " + numberOfDeletedRows + " rows from Table2" );
+
+			statement.executeUpdate( "drop table Parts2" );
+			System.out.println( "Parts2 table has been successfully destroyed!" );
+		}
+		catch( SQLException e )
+		{
+			System.err.println( e.getMessage() );
+		}
+	}
+
+	void finalizeSystem()
+	{
+		// Here, we destroy connection or any other objects we created when the class was instantiated.
+		try
+		{
+			_connection.close();
+			System.out.println( "Connection has been closed!" );
 		}
 		catch( SQLException e )
 		{
