@@ -33,13 +33,13 @@ interface Testable
 	 * Destroy all of the tables in your DB.
 	 * @return a string "r", where r = 0 for success, 1 for error.
 	 */
-//	String dropTables();
+	String dropTables();
 
 	/**
 	 * Create all of your tables in your DB.
 	 * @return a string "r", where r = 0 for success, 1 for error.
 	 */
-//	String createTables();
+	String createTables();
 
 	/**
 	 * Set system's date.
@@ -48,7 +48,7 @@ interface Testable
 	 * @param day Valid day, from 1 to 31, depending on the month (and if it's a leap year).
 	 * @return a string "r yyyy-mm-dd", where r = 0 for success, 1 for error; and yyyy-mm-dd is the new system's date, e.g. 2012-09-16.
 	 */
-//	String setDate( int year, int month, int day );
+	String setDate( int year, int month, int day );
 
 	/**
 	 * Create a new checking or savings account.
@@ -81,7 +81,7 @@ interface Testable
 	 *         balance is the account's initial balance with up to 2 decimal places (e.g. 1000.12, as with %.2f); and
 	 *         tin is the Tax ID of account's primary owner.
 	 */
-//	String createPocketAccount( String id, String linkedId, double initialTopUp, String tin );
+	String createPocketAccount( String id, String linkedId, double initialTopUp, String tin );
 
 	/**
 	 * Create a new customer and link them to an existing checking or saving account.
@@ -91,7 +91,7 @@ interface Testable
 	 * @param address New customer's address.
 	 * @return a string "r", where r = 0 for success, 1 for error.
 	 */
-//	String createCustomer( String accountId, String tin, String name, String address );
+	String createCustomer( String accountId, String tin, String name, String address );
 
 	/**
 	 * Deposit a given amount of dollars to an existing checking or savings account.
@@ -102,7 +102,7 @@ interface Testable
 	 *         old is the old account balance, with up to 2 decimal places (e.g. 1000.12, as with %.2f); and
 	 *         new is the new account balance, with up to 2 decimal places.
 	 */
-//	String deposit( String accountId, double amount );
+	String deposit( String accountId, double amount );
 
 	/**
 	 * Show an account balance (regardless of type of account).
@@ -111,7 +111,7 @@ interface Testable
 	 *         r = 0 for success, 1 for error; and
 	 *         balance is the account balance, with up to 2 decimal places (e.g. with %.2f).
 	 */
-//	String showBalance( String accountId );
+	String showBalance( String accountId );
 
 	/**
 	 * Move a specified amount of money from the linked checking/savings account to the pocket account.
@@ -122,7 +122,7 @@ interface Testable
 	 *         linkedNewBalance is the new balance of linked account, with up to 2 decimal places (e.g. with %.2f); and
 	 *         pocketNewBalance is the new balance of the pocket account.
 	 */
-//	String topUp( String accountId, double amount );
+	String topUp( String accountId, double amount );
 
 	/**
 	 * Move a specified amount of money from one pocket account to another pocket account.
@@ -134,7 +134,7 @@ interface Testable
 	 *         fromNewBalance is the new balance of the source pocket account, with up to 2 decimal places (e.g. with %.2f); and
 	 *         toNewBalance is the new balance of destination pocket account, with up to 2 decimal places.
 	 */
-//	String payFriend( String from, String to, double amount );
+	String payFriend( String from, String to, double amount );
 
 	/**
 	 * Generate list of closed accounts.

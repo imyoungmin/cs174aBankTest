@@ -23,107 +23,6 @@ public class App implements Testable
 		// TODO: Any actions you need.
 	}
 
-	/**
-	 * This is an example of DDL.
-	 */
-	void exampleCreateTable()
-	{
-		try( Statement statement = _connection.createStatement() )
-		{
-			statement.executeUpdate( "create table Parts2(" +
-					"    pid int," +
-					"    pname varchar(20)," +
-					"    color varchar(20)," +
-					"    primary key (pid)" +
-					")" );
-			System.out.println( "Parts2 table has been successfully created!" );
-		}
-		catch( SQLException e )
-		{
-			System.err.println( e.getMessage() );
-		}
-	}
-
-	/**
-	 * This is an example of inserting rows into a table.
-	 */
-	void exampleInsertIntoTable()
-	{
-		try( PreparedStatement preparedStatement = _connection.prepareStatement( "insert into Parts2( pid, pname, color ) values ( ?, ?, ? )" ) )
-		{
-			int[] ids = {10, 11, 12, 13};
-			String[] names = {"Part A", "Part B", "Part C", "Part C"};
-			String[] colors = {"red", "red", "green", "green"};
-			for( int i = 0; i < ids.length; i++ )
-			{
-				preparedStatement.clearParameters();                        // Filling in the blanks.
-				preparedStatement.setInt( 1, ids[i] );
-				preparedStatement.setString( 2, names[i] );
-				preparedStatement.setString( 3, colors[i] );
-
-				preparedStatement.executeUpdate();
-			}
-			System.out.println( "Parts2 table has been successfully populated!" );
-		}
-		catch( SQLException e )
-		{
-			System.err.println( e.getMessage() );
-		}
-	}
-
-	/**
-	 * This is an example access operation to the DB.
-	 */
-	void exampleAccessTable()
-	{
-		// Statement and ResultSet are AutoCloseable and closed automatically.
-		try( Statement statement = _connection.createStatement() )
-		{
-			try( ResultSet resultSet = statement.executeQuery( "select * from Parts2" ) )
-			{
-				while( resultSet.next() )
-					System.out.println( resultSet.getInt( "pid" ) + " " + resultSet.getString( "pname" ) + " " + resultSet.getString( "color" ) );
-			}
-		}
-		catch( SQLException e )
-		{
-			System.err.println( e.getMessage() );
-		}
-	}
-
-	/**
-	 * This is an example of destroying a table.
-	 */
-	void exampleDetroyTable()
-	{
-		try( Statement statement = _connection.createStatement() )
-		{
-			int numberOfDeletedRows = statement.executeUpdate( "delete from Parts2" );
-			System.out.println( "Deleted " + numberOfDeletedRows + " rows from Table2" );
-
-			statement.executeUpdate( "drop table Parts2" );
-			System.out.println( "Parts2 table has been successfully destroyed!" );
-		}
-		catch( SQLException e )
-		{
-			System.err.println( e.getMessage() );
-		}
-	}
-
-	void finalizeSystem()
-	{
-		// Here, we destroy connection or any other objects we created when the class was instantiated.
-		try
-		{
-			_connection.close();
-			System.out.println( "Connection has been closed!" );
-		}
-		catch( SQLException e )
-		{
-			System.err.println( e.getMessage() );
-		}
-	}
-
 	////////////////////////////// Implement all of the methods given in the interface /////////////////////////////////
 	// Check the Testable.java interface for the function signatures and descriptions.
 
@@ -167,6 +66,24 @@ public class App implements Testable
 		}
 	}
 
+	@Override
+	public String dropTables()
+	{
+		return null;
+	}
+
+	@Override
+	public String createTables()
+	{
+		return null;
+	}
+
+	@Override
+	public String setDate( int year, int month, int day )
+	{
+		return null;
+	}
+
 	/**
 	 * Example of one of the testable functions.
 	 */
@@ -183,5 +100,41 @@ public class App implements Testable
 	public String createCheckingSavingsAccount( AccountType accountType, String id, double initialBalance, String tin, String name, String address )
 	{
 		return "0 " + id + " " + accountType + " " + initialBalance + " " + tin;
+	}
+
+	@Override
+	public String createPocketAccount( String id, String linkedId, double initialTopUp, String tin )
+	{
+		return null;
+	}
+
+	@Override
+	public String createCustomer( String accountId, String tin, String name, String address )
+	{
+		return null;
+	}
+
+	@Override
+	public String deposit( String accountId, double amount )
+	{
+		return null;
+	}
+
+	@Override
+	public String showBalance( String accountId )
+	{
+		return null;
+	}
+
+	@Override
+	public String topUp( String accountId, double amount )
+	{
+		return null;
+	}
+
+	@Override
+	public String payFriend( String from, String to, double amount )
+	{
+		return null;
 	}
 }
