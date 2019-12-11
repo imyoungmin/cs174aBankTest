@@ -25,7 +25,7 @@ public class Main
 		String s2 = app.dropTables();
 		String s3 = app.createTables();
 
-		String s4 = app.setDate( 2011, 3, 2011 );
+		String s4 = app.setDate( 2011, 3, 31 );
 
 		String s5 = app.createCheckingSavingsAccount( AccountType.SAVINGS, "29107", 34000, "209378521", "Kelvin Costner", "Santa Cruz #3579" );
 		String s6 = app.createCustomer("29107", "212116070", "Li Kung", "2 Peoples Rd Beijing" );
@@ -39,8 +39,9 @@ public class Main
 		String s12 = app.createCheckingSavingsAccount( AccountType.STUDENT_CHECKING, "12121", 1200, "207843218", "David Copperfill", "1357 State St" );
 		String s13 = app.createPocketAccount("53027", "12121", 50, "207843218" );
 
-		String s14 = app.payFriend( "53027", "43947", 50 );
-		String s15 = app.listClosedAccounts();
+		String s14 = app.payFriend( "53027", "43947", 49.99 );
+		String s15 = app.showBalance( "53027" );
+		String s16 = app.listClosedAccounts();
 
 		System.out.println( "////////////////////////////// Printing the results ///////////////////////////////////" );
 		System.out.println( s1 );
@@ -58,6 +59,7 @@ public class Main
 		System.out.println( s13 );
 		System.out.println( s14 );
 		System.out.println( s15 );
+		System.out.println( s16 );
 
 	}
 	//!### FINALIZAMOS
